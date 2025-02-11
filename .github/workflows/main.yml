@@ -33,7 +33,7 @@ jobs:
       - name: Build Android release APK
         run: |
           cd MyApp
-          cordova build android --release -- --keystore=~/my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
+          cordova build android --release -- --keystore=/home/runner/my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
 
 
 
