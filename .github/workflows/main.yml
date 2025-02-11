@@ -28,10 +28,12 @@ jobs:
           cordova build android --release
 
       - name: create keystore
-        run: keytool -genkey -v -keystore my-release-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias
+        run: keytool -genkey -v -keystore my-release-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -storepass myStorePassword -keypass myKeyPassword
 
       - name: Build Android release APK
-        run: cordova build android --release -- --alias=my-key-alias --password=my-release-key.keystore --packageType=apk
+        run: |
+          cd MyApp
+          run: cordova build android --release -- --keystore=android.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
 
 
 
