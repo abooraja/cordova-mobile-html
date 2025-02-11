@@ -19,9 +19,17 @@ jobs:
 
       - name: setup cordova
       - run: npm install -g cordova 
+
+      - name: cordova create MyApp
       - run: cordova create MyApp
+
+      - name: cd
       - run: cd MyApp
+
+      - name: cordova platform add android
       - run: cordova platform add android
+
+      - name: cordova build android
       - run: cordova build android
 
       
