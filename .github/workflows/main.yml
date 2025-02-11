@@ -12,17 +12,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
+      - name: setup cordova
+      - run: npm install -g cordova 
+      - run: cordova create MyApp
+      - run: cd MyApp
+      - run: cordova platform add android
+      - run: cordova build android
+
+      
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
   
