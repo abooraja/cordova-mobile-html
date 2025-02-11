@@ -25,10 +25,7 @@ jobs:
           cordova create MyApp
           cd MyApp
           cordova platform add android
-         
-      - name: cordova build android
-        run: cordova build android
-
+          cordova build android
       
       - name: Setup Java
         uses: actions/setup-java@v3
