@@ -25,7 +25,15 @@ jobs:
           cordova create MyApp
           cd MyApp
           cordova platform add android
-          cordova build android
+          cordova build android --release
+          cd platforms/android/app/build/outputs/apk/release/
+          ls
+          keytool -genkey -v -keystore my-release-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias
+          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore app-release-unsigned.apk my-key-alias
+          zipalign -v 4 app-release-unsigned.apk MyApp.apk
+          apksigner verify MyApp.apk
+
+
       
       - name: Setup Java
         uses: actions/setup-java@v3
