@@ -24,7 +24,10 @@ jobs:
         run: cordova create MyApp
 
       - name: cd
-        run: cd MyApp || ls
+        run: |
+          ls
+          cd MyApp
+          ls
 
       - name: cordova platform add android
         run: cordova platform add android
