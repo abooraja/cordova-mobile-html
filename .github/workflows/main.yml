@@ -25,72 +25,15 @@ jobs:
           cordova create MyApp
           cd MyApp
           cordova platform add android
-          cordova build android --release --packageType=apk
-          cd platforms/android/app/build/outputs/apk/release/
-          ls
-          keytool -genkey -v -keystore my-release-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore app-release-unsigned.apk my-key-alias
-          zipalign -v 4 app-release-unsigned.apk MyApp.apk
-          apksigner verify MyApp.apk
+          cordova build android --release
+
+      - name: create keystore
+        run: keytool -genkey -v -keystore my-release-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias
+
+      - name: Build Android release APK
+        run: cordova build android --release -- --alias=my-key-alias --password=my-release-key.keystore --packageType=apk
 
 
-      
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-      
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-  
-      - name: Install Cordova
-        run: npm install -g cordova
-
-      - name: Add Cordova Android platform
-        run: cordova platform add android@12.0.0
-
-      - name: Add cordova-plugin-androidx-adapter
-        run: cordova plugin add cordova-plugin-androidx-adapter@1.1.3
-
-      - name: Add custom cordova-plugin-inappbrowser-download
-        run: cordova plugin add ./cordova-plugin-inappbrowser-download
-
-      - name: Add cordova-plugin-device
-        run: cordova plugin add cordova-plugin-device@2.1.0
-
-      - name: Add cordova-plugin-splashscreen
-        run: cordova plugin add cordova-plugin-splashscreen@6.0.1
-
-      - name: Add cordova-plugin-media-capture
-        run: cordova plugin add cordova-plugin-media-capture@4.0.0
-
-      - name: Add cordova-plugin-dialogs
-        run: cordova plugin add cordova-plugin-dialogs@2.0.2
-
-      - name: Add cordova-plugin-vibration
-        run: cordova plugin add cordova-plugin-vibration@3.1.1
-
-      - name: Add cordova-plugin-geolocation
-        run: cordova plugin add cordova-plugin-geolocation@4.1.0
-
-      - name: Add cordova-plugin-fingerprint-aio
-        run: cordova plugin add cordova-plugin-fingerprint-aio@5.0.1
-
-      - name: Add cordova-plugin-camera
-        run: cordova plugin add cordova-plugin-camera@6.0.0
-
-      - name: Add cordova-plugin-android-permissions
-        run: cordova plugin add cordova-plugin-android-permissions@1.1.5
-
-      - name: Build Android release APK test
-        run: cordova build android --release
-
-      - name: Add cordova-plugin-push
-        env:
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.ANDROID_GOOGLE_SERVICES_JSON_BASE64 }}
-        if: env.GOOGLE_SERVICES_JSON_BASE64 != ''
-        run: cordova plugin add @havesource/cordova-plugin-push@dev
 
       - name: Import Android keystore and Google services JSON
         env:
