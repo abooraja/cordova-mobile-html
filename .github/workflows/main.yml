@@ -28,7 +28,10 @@ jobs:
           cordova build android --release
 
       - name: create keystore
-        run: keytool -genkey -v -keystore ~/my-release-key.keystore -storepass myStorePassword -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -keypass myKeyPassword -dname "CN=John Doe, OU=Dev Department, O=MyCompany, L=MyCity, ST=MyState, C=US" 
+        run: |
+          keytool -genkey -v -keystore ~/my-release-key.keystore -storepass myStorePassword -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -keypass myKeyPassword -dname "CN=John Doe, OU=Dev Department, O=MyCompany, L=MyCity, ST=MyState, C=US" 
+          cd ~/
+          ls
 
       - name: Build Android release APK
         run: |
