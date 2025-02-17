@@ -24,9 +24,9 @@ jobs:
         run: |
           cordova create MyApp com.MyApp "My App"
           cp index.html MyApp/www/index.html
-          tar -czvf MyApp-src.tar.gz MyApp
           cd MyApp
           cordova platform add android
+          tar -czvf MyApp-src.tar.gz MyApp
 
       - name: create keystore
         run: |
