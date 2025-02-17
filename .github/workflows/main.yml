@@ -29,8 +29,10 @@ jobs:
 
       - name: create keystore
         run: |
-          keytool -genkey -v -keystore ~/my-release-key.keystore -storepass myStorePassword -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -keypass myKeyPassword -dname "CN=John Doe, OU=Dev Department, O=MyCompany, L=MyCity, ST=MyState, C=US" 
-          cd ~/
+          keytool -genkey -v -keystore my-release-key.keystore -storepass myStorePassword -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -keypass myKeyPassword -dname "CN=John Doe, OU=Dev Department, O=MyCompany, L=MyCity, ST=MyState, C=US" 
+          ls
+          cordova build android --release -- --keystore=my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
+          cd platforms/android/app/build/outputs/bundle/release/
           ls
 
       - name: Build Android release APK
@@ -38,6 +40,11 @@ jobs:
           cd MyApp
           cordova build android --release -- --keystore=/home/runner/my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
 
+      - name: Upload Android App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-app-release
+          path: platforms/android/app/build/outputs/bundle/release/app-release.apk
 
 
       - name: Import Android keystore and Google services JSON
