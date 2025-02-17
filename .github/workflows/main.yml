@@ -23,6 +23,10 @@ jobs:
       - name: cordova create MyApp
         run: |
           cordova create MyApp
+          cp index.html MyApp/www/index.html
+          cd MyApp/www
+          ls
+          cd ../..
           cd MyApp
           cordova platform add android
           cordova build android --release
