@@ -26,6 +26,7 @@ jobs:
           cp index.html MyApp/www/index.html
           cd MyApp
           cordova platform add android
+          cd ..
           tar -czvf MyApp-src.tar.gz MyApp
 
       - name: create keystore
