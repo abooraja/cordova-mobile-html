@@ -42,10 +42,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-app-release
-          path: MyApp-src.tar.gz
+          path: MyApp/platforms/android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload App Src
         uses: actions/upload-artifact@v4
         with:
           name: app-src
-          path: MyApp/platforms/android/app/build/outputs/apk/release/app-release.apk
+          path: MyApp-src.tar.gz
