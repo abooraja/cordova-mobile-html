@@ -33,7 +33,8 @@ jobs:
           pwd
           keytool -genkey -v -keystore my-release-key.keystore -storepass myStorePassword -keyalg RSA -keysize 2048 -validity 10000 -alias my-key-alias -keypass myStorePassword -dname "CN=John Doe, OU=Dev Department, O=MyCompany, L=MyCity, ST=MyState, C=US" 
           ls
-          cordova build android --release -- --keystore=my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myKeyPassword --packageType=apk
+          keytool -list -keystore my-release-key.keystore
+          cordova build android --release -- --keystore=my-release-key.keystore --storePassword=myStorePassword --alias=my-key-alias --password=myStorePassword --packageType=apk
           cd platforms/android/app/build/outputs/bundle/release/
           ls
 
